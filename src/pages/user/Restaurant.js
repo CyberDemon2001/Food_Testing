@@ -1,5 +1,6 @@
+// Restaurant component
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../utils/api";  // Use the axios instance with base URL
 import { useParams } from "react-router-dom";
 
 const Restaurant = () => {
@@ -10,8 +11,9 @@ const Restaurant = () => {
 
     useEffect(() => {
         console.log("Fetching restaurant data for ID:", id);  // Log the restaurant ID
-    
-        axios.get(`/api/restaurants/${id}`)
+        
+        // Use api to make the request
+        api.get(`/restaurants/${id}`)
             .then(response => {
                 if (response.status === 404) {
                     console.error("Restaurant not found:", response);
@@ -27,7 +29,6 @@ const Restaurant = () => {
                 setLoading(false);
             });
     }, [id]);
-    
 
     if (loading) {
         return <div className="text-center mt-5">Loading...</div>;

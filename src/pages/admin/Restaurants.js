@@ -25,16 +25,21 @@ const Restaurants = () => {
       setMessage('Please fill in all fields and add at least one menu item.');
       return;
     }
+    console.log('Submitting:', name, location, menu);
+    console.log('Token:', localStorage.getItem('token'));
 
     try {
-      const response = await api.post('/admin/restaurants', { name, location, menu });
-      setMessage('Restaurant added successfully!');
+      const response = await api.post('/restaurants', { name, location, menu }
+        , { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } }
+      );
       console.log(response.data);
+      setMessage('Restaurant added successfully!');
       // Clear the form
       setName('');
       setLocation('');
       setMenu([]);
     } catch (error) {
+      console.error('Error response:', error.response ? error.response.data : error);
       setMessage('Failed to add restaurant. Please try again.');
       console.error(error);
     }
