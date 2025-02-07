@@ -1,0 +1,51 @@
+body {
+    background-color: #f8f9fa;
+  }
+  
+  .card {
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+
+  /* Admin Dashboard */
+.list-group-item {
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.badge {
+  font-size: 0.9em;
+  padding: 0.5em 0.75em;
+}
+
+/* Manage Restaurants */
+.form-label {
+  font-weight: bold;
+}
+
+/* Manage Orders */
+.btn-sm {
+  margin-right: 5px;
+}
+
+/* Add Restaurant Form */
+.form-label {
+  font-weight: bold;
+}
+
+.alert {
+  margin-top: 10px;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
