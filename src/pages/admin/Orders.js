@@ -5,13 +5,16 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    // Fetch orders from the backend
-    api.get('/orders')
-      .then(response => setOrders(response.data))
-      .catch(error => {
+    const fetchOrders = async () => {
+      try {
+        const response = await api.get('/orders');
+        setOrders(response.data);
+      } catch (error) {
         console.error('Error fetching orders:', error);
-        // You could optionally log the error or display a message to the user in the UI
-      });
+      }
+    };
+
+    fetchOrders();
   }, []);
 
   const updateStatus = async (id, status) => {

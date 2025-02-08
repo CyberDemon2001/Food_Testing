@@ -4,7 +4,7 @@ const User = require('../models/User');
 const adminMiddleware = async (req, res, next) => {
   try {
     const user = await User.findById(req.userId);  // Assuming userId is set in authMiddleware
-    if (!user || user.role !== 'admin') {
+    if (!user || req.user.role !== 'admin') {
       return res.status(403).json({ message: 'Access denied. Admins only.' });
     }
     next();  // Proceed to the next middleware/route handler

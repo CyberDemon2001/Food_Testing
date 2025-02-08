@@ -7,12 +7,9 @@ const router = express.Router();
 // Get all orders (Admin only)
 router.get('/', authMiddleware, adminMiddleware, async (req, res) => {
   try {
-    console.log('Fetching orders...');
     const orders = await Order.find().populate('studentId restaurantId');
-    console.log('Orders:', orders);
     res.json(orders);
   } catch (err) {
-    console.error('Error fetching orders:', err);
     res.status(500).json({ message: err.message });
   }
 });

@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const Navbar = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
+  console.log('User:', user);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -23,6 +24,16 @@ const Navbar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/">Home</Link>
             </li>
+            {user && user.role === 'student' && (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/cart">Cart</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/profile">Profile</Link>
+                </li>
+              </>
+            )}
             {user && user.role === 'admin' && (
               <>
                 <li className="nav-item">
@@ -48,9 +59,14 @@ const Navbar = () => {
                 </li>
               </>
             ) : (
+              <>
               <li className="nav-item">
                 <Link className="nav-link" to="/login">Login</Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/register">Register</Link>
+              </li>
+              </>
             )}
           </ul>
         </div>

@@ -32,7 +32,7 @@ const Restaurants = () => {
       const response = await api.post('/restaurants', { name, location, menu }
         , { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } }
       );
-      console.log(response.data);
+      console.log("Response: ",response.data);
       setMessage('Restaurant added successfully!');
       // Clear the form
       setName('');

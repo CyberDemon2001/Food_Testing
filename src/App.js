@@ -10,7 +10,7 @@ import Restaurants from "./pages/admin/Restaurants";
 import Login from "./pages/user/Login";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import Register from "./pages/user/Register";
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
 
@@ -24,6 +24,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         {/* Admin Routes */}
         {user && user.role === "admin" && (

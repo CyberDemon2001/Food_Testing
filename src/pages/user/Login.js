@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
-import {jwtDecode} from 'jwt-decode';
 import api from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode'; // Install jwt-decode: npm install jwt-decode
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await api.post('/auth/login', { email, password });
-      localStorage.setItem('token', response.data.token);
-  
+      const token = response.data.token;
+
       // Decode the token to get user details
-      const decoded = jwtDecode(response.data.token);
+      const decoded = jwtDecode(token);
+      console.log('Decoded user:', decoded);
+
+      // Store the token and user details in localStorage
+      localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(decoded));
-  
+
       // Redirect based on role
       if (decoded.role === 'admin') {
         navigate('/admin/dashboard');
@@ -27,9 +30,8 @@ const Login = () => {
         navigate('/');
       }
     } catch (error) {
+      setMessage('Invalid credentials. Please try again.');
       console.error(error);
-      setError('Failed to login. Please check your credentials and try again.');
-      setLoading(false);
     }
   };
 
@@ -40,6 +42,7 @@ const Login = () => {
           <div className="card">
             <div className="card-body">
               <h2 className="card-title text-center">Login</h2>
+              {message && <div className="alert alert-danger">{message}</div>}
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">Email</label>
@@ -63,10 +66,7 @@ const Login = () => {
                     required
                   />
                 </div>
-                {error && <div className="alert alert-danger">{error}</div>}
-                <button type="submit" className="btn btn-primary w-100" disabled={loading}>
-                  {loading ? 'Logging in...' : 'Login'}
-                </button>
+                <button type="submit" className="btn btn-primary w-100">Login</button>
               </form>
             </div>
           </div>

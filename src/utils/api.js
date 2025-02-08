@@ -12,4 +12,15 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
+// const fetchOrders = async () => {
+//     try {
+//       console.log('Fetching orders...');
+//       const response = await api.get('/orders');
+//       console.log('Response:', response.data);
+//       setOrders(response.data);
+//     } catch (error) {
+//       console.error('Error fetching orders:', error.response ? error.response.data : error);
+//     }
+//   };
+
 export default api;
